@@ -13,6 +13,8 @@
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 
+#import "MainGameLayer.h"
+
 #pragma mark - HelloWorldLayer
 
 // HelloWorldLayer implementation
@@ -41,19 +43,38 @@
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
 		
-		// create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
-
+//		// create and initialize a Label
+//		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
+//        
+//        
 		// ask director for the window size
 		CGSize size = [[CCDirector sharedDirector] winSize];
-	
-		// position the label on the center of the screen
-		label.position =  ccp( size.width /2 , size.height/2 );
+//	
+//		// position the label on the center of the screen
+//		label.position =  ccp( size.width /2 , size.height/2 );
+//		
+//		// add the label as a child to this Layer
+//		[self addChild: label];
 		
-		// add the label as a child to this Layer
-		[self addChild: label];
+		//My menu
+        CCMenuItem *itemMainGame = [CCMenuItemFont itemWithString:@"Main Game" block:^(id sender) {
+			[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainGameLayer scene] withColor:ccWHITE]];
+//			AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
+//			
+//			[[app navController] presentModalViewController:mainGame animated:YES];
+			
+		}
+									   ];
+        CCMenu *menu2 = [CCMenu menuWithItems: itemMainGame, nil];
 		
+		[menu2 alignItemsHorizontallyWithPadding:20];
+		[menu2 setPosition:ccp( size.width/2, size.height/2)];
 		
+		// Add the menu to the layer
+		[self addChild:menu2];
+
+        
+        
 		
 		//
 		// Leaderboards and Achievements
